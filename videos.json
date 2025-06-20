@@ -1,0 +1,34 @@
+{
+    "videos": [
+        {
+            "id": "1",
+            "title": "Örnek Video 1",
+            "embedUrl": "https://www.tiktok.com/embed/v2/7517945497831623943",
+            "date": "2025-06-20",
+            "category": "video"
+        },
+        {
+            "id": "2",
+            "title": "Örnek Video 2",
+            "embedUrl": "https://www.tiktok.com/embed/v2/7517559815237930258",
+            "date": "2025-06-20",
+            "category": "video"
+        },
+        {
+            "id": "3",
+            "title": "Örnek Video 3",
+            "embedUrl": "https://www.tiktok.com/embed/v2/7517735822603390226",
+            "date": "2025-06-20",
+            "category": "video"
+        },
+        {
+            "id": "4",
+            "title": "Örnek Video 4",
+            "embedUrl": "https://www.tiktok.com/embed/v2/7517683947774479623",
+            "date": "2025-06-20",
+            "category": "video"
+        }
+       
+    
+    ]
+} 

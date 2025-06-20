@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kimyonik instagram hikaye/story videolarını indir</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID" crossorigin="anonymous"></script>
+    <style>
+        .video-container h2 {
+            margin-bottom: 0;
+            font-size: 2rem;
+            line-height: 1.2;
+        }
+
+        .filter-controls {
+            min-width: 340px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="src/logo.png" alt="Kimyonik Logo" height="40" class="d-inline-block align-text-top me-2">
+                Kimyonik Stories
+            </a>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="video-container">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2 class="mb-0" style="font-size:1.5rem;">Videolar</h2>
+                        <div class="d-flex align-items-center gap-2">
+                            <label for="dateFilter" class="mb-0 me-2 fw-bold" style="font-size:1.0rem;">Filtre:</label>
+                            <select id="dateFilter" class="form-select" style="max-width:180px;">
+                                <option value="all">Tüm Zamanlar</option>
+                                <option value="today">Bugün</option>
+                                <option value="yesterday">Dün</option>
+                                <option value="week">Bu Hafta</option>
+                                <option value="month">Bu Ay</option>
+                                <option value="custom">Özel Tarih</option>
+                            </select>
+                            <input type="date" id="datePicker" class="form-control" style="max-width:170px;">
+                        </div>
+                    </div>
+                    <div id="videoList" class="video-grid">
+                        <!-- Videolar JavaScript ile buraya eklenecek -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <!-- Reklam Alanı -->
+                <div class="ad-container">
+                    <div class="ad-placeholder">
+                        Reklam Alanı
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sorumluluk Reddi Beyanı -->
+    <div class="container mt-5">
+        <div class="disclaimer-section">
+            <h3>Sorumluluk Reddi Beyanı</h3>
+            <div class="disclaimer-content">
+                <div class="contact-info">
+                    <p><strong>İçerik Sahipleri İçin Önemli Bilgi:</strong></p>
+                    <p>Eğer sitede paylaşılan videolardan herhangi birinin telif hakkı sahibiyseniz ve içeriğin kaldırılmasını istiyorsanız, lütfen <a href="mailto:info@kimyonik.tr">info@kimyonik.tr</a> adresine e-posta gönderiniz.</p>
+                </div>
+                
+                <p>Önemli Uyarılar:</p>
+                <ul>
+                    <li>Bu sitede paylaşılan videoların telif hakları ilgili içerik sahiplerine aittir.</li>
+                    <li>Kimyonik, videoların içeriğinden veya telif haklarından sorumlu değildir.</li>
+                    <li>Video indirme işlemi kullanıcının kendi sorumluluğundadır.</li>
+                    <li>İndirilen videoların kullanımı ve paylaşımı ile ilgili tüm yasal sorumluluk kullanıcıya aittir.</li>
+                    <li>Kimyonik, üçüncü taraf dönüştürücü sitelere yönlendirme yapmaktadır ve bu sitelerin içeriklerinden veya işlemlerinden sorumlu değildir.</li>
+                </ul>
+                
+                <p>Bu siteyi kullanarak, yukarıdaki koşulları kabul etmiş sayılırsınız.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- İndirme Modalı -->
+    <div class="modal fade" id="downloadModal" tabindex="-1" aria-labelledby="downloadModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="downloadModalLabel">Yönlendiriliyorsunuz</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+          </div>
+          <div class="modal-body text-center">
+            <p>Videoyu indirmek için 3. taraf siteye yönlendirileceksiniz, lütfen bekleyin.</p>
+            <div class="progress my-3" style="height: 30px;">
+              <div id="downloadProgress" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%; font-size: 1.2rem;">10</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="bg-dark text-white mt-5 py-3">
+        <div class="container text-center">
+            <div class="social-links mb-3">
+                <a href="https://instagram.com/kimy0nik" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="https://x.com/kimy0nik" target="_blank" class="social-link"><i class="fab fa-x-twitter"></i></a>
+                <a href="https://tiktok.com/@kimyon.tt" target="_blank" class="social-link"><i class="fab fa-tiktok"></i></a>
+                <a href="https://youtube.com/@Kimyon" target="_blank" class="social-link"><i class="fab fa-youtube"></i></a>
+            </div>
+            <p>&copy; 2025 Kimyonik. Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 

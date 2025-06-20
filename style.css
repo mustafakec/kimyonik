@@ -1,0 +1,320 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.navbar-brand img {
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand img:hover {
+    transform: scale(1.1);
+}
+
+.video-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.video-item {
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+.video-date {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    z-index: 1;
+}
+
+.ad-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    min-height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ad-placeholder {
+    color: #6c757d;
+    text-align: center;
+}
+
+.download-btn {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.navbar {
+    margin-bottom: 20px;
+}
+
+footer {
+    margin-top: 50px;
+}
+
+/* Sorumluluk Reddi Beyanı Stilleri */
+.disclaimer-section {
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+}
+
+.disclaimer-section h3 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 10px;
+}
+
+.disclaimer-content {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.disclaimer-content ul {
+    margin: 15px 0;
+    padding-left: 20px;
+}
+
+.disclaimer-content li {
+    margin-bottom: 8px;
+}
+
+.disclaimer-content p {
+    margin-bottom: 15px;
+}
+
+/* İletişim Bilgisi Stilleri */
+.contact-info {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    border-left: 4px solid #007bff;
+}
+
+.contact-info p {
+    margin-bottom: 10px;
+}
+
+.contact-info a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+/* Sosyal Medya İkonları Stilleri */
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.social-link {
+    color: white;
+    font-size: 24px;
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    transform: translateY(-3px);
+    color: #007bff;
+}
+
+/* Sosyal medya ikonları için özel renkler */
+.social-link .fa-instagram:hover {
+    color: #E1306C;
+}
+
+.social-link .fa-x-twitter:hover {
+    color: #1DA1F2;
+}
+
+.social-link .fa-tiktok:hover {
+    color: #69C9D0;
+}
+
+.social-link .fa-youtube:hover {
+    color: #FF0000;
+}
+
+/* Filtreleme Stilleri */
+.filter-controls {
+    min-width: 200px;
+}
+
+.filter-controls .form-select, #dateFilter {
+    min-width: 100px;
+    max-width: 150px;
+    border-radius: 20px;
+    padding: 8px 15px;
+    border: 1px solid #dee2e6;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-controls input[type="date"] {
+    border-radius: 20px;
+    padding: 8px 15px;
+    border: 1px solid #dee2e6;
+    background-color: white;
+    transition: all 0.3s ease;
+    min-width: 140px;
+    max-width: 170px;
+}
+
+@media (max-width: 600px) {
+    .video-container .d-flex.align-items-center {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 0.5rem;
+    }
+    .filter-controls {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        min-width: 0;
+        max-width: 100%;
+    }
+    .filter-controls .form-select,
+    .filter-controls input[type="date"] {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+    }
+}
+
+.form-select:hover {
+    border-color: #007bff;
+}
+
+.form-select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+.date-toggle {
+    opacity: 0;
+    pointer-events: none;
+    width: 170px;
+    min-width: 140px;
+    transition: opacity 0.2s;
+}
+
+.date-toggle.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.video-container .d-flex.align-items-center {
+    flex-wrap: wrap;
+}
+
+.filter-controls {
+    min-width: 200px;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-width: 400px;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 600px) {
+    .video-container .d-flex.align-items-center {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 0.5rem;
+    }
+    .filter-controls {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        min-width: 0;
+        max-width: 100%;
+    }
+    .filter-controls .form-select,
+    .filter-controls input[type="date"] {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+    }
+}
+
+.d-flex.justify-content-between.align-items-center.mb-4 {
+    min-width: 400px;
+}
+
+.filter-controls {
+    min-width: 340px;
+    max-width: 400px;
+    gap: 10px;
+}
+
+.filter-controls .form-select, #dateFilter {
+    min-width: 120px;
+    max-width: 180px;
+}
+
+.filter-controls input[type="date"] {
+    min-width: 140px;
+    max-width: 170px;
+}
+
+.video-container .d-flex.justify-content-between.align-items-center.mb-4 {
+    min-width: 400px;
+    width: 100%;
+    flex-wrap: nowrap;
+}
+
+.video-container h2 {
+    margin-bottom: 0;
+    font-size: 1.5rem;
+    line-height: 1.2;
+    flex-shrink: 0;
+}
+
+.video-container .d-flex.align-items-center.gap-2 {
+    min-width: 340px;
+    max-width: 400px;
+    gap: 10px;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+}
+
+.video-container .form-select, 
+.video-container input[type="date"] {
+    min-width: 120px;
+    max-width: 180px;
+}
+
+.video-container input[type="date"] {
+    min-width: 140px;
+    max-width: 170px;
+}
+
+.video-container label[for="dateFilter"] {
+    white-space: nowrap;
+    margin-bottom: 0;
+    font-weight: bold;
+    font-size: 1rem;
+} 
