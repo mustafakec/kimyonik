@@ -588,4 +588,287 @@ footer {
 
 .video-item .badge {
     align-self: flex-start;
+}
+
+/* Yeni Sayfalar İçin Stiller */
+.content-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+}
+
+.content-section {
+    margin-bottom: 30px;
+}
+
+.content-section h1 {
+    color: #333;
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    border-bottom: 3px solid #007bff;
+    padding-bottom: 10px;
+}
+
+.content-section h2 {
+    color: #333;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    margin-top: 25px;
+}
+
+.content-section h3 {
+    color: #555;
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+.content-section p {
+    color: #666;
+    line-height: 1.7;
+    margin-bottom: 15px;
+}
+
+.content-section ul {
+    margin: 15px 0;
+    padding-left: 20px;
+}
+
+.content-section li {
+    margin-bottom: 8px;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* İletişim Sayfası Stilleri */
+.contact-card {
+    background-color: #f8f9fa;
+    padding: 25px;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 20px;
+    border-left: 4px solid #007bff;
+    transition: transform 0.3s ease;
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+}
+
+.contact-icon {
+    font-size: 2.5rem;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+.contact-card h3 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.contact-link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+.contact-link:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
+
+.social-media-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.social-media-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #333;
+    transition: all 0.3s ease;
+    min-width: 120px;
+}
+
+.social-media-card:hover {
+    transform: translateY(-5px);
+    background-color: #007bff;
+    color: white;
+}
+
+.social-media-card i {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.faq-item {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border-left: 4px solid #28a745;
+}
+
+.faq-item h3 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.contact-form {
+    background-color: #f8f9fa;
+    padding: 25px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+/* Hakkımızda Sayfası Stilleri */
+.value-card {
+    background-color: #f8f9fa;
+    padding: 25px;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.value-card:hover {
+    transform: translateY(-5px);
+}
+
+.value-icon {
+    font-size: 2.5rem;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+.value-card h3 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.stat-card {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Footer Linkleri */
+.footer-links a {
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #007bff !important;
+}
+
+/* Responsive Düzenlemeler */
+@media (max-width: 768px) {
+    .content-container {
+        padding: 20px;
+    }
+    
+    .content-section h1 {
+        font-size: 2rem;
+    }
+    
+    .content-section h2 {
+        font-size: 1.5rem;
+    }
+    
+    .contact-card,
+    .value-card {
+        padding: 20px;
+    }
+    
+    .social-media-links {
+        gap: 15px;
+    }
+    
+    .social-media-card {
+        min-width: 100px;
+        padding: 15px;
+    }
+    
+    .stat-card {
+        padding: 15px;
+    }
+    
+    .stat-number {
+        font-size: 1.5rem;
+    }
+    
+    .footer-links {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .footer-links a {
+        margin: 0 !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .content-container {
+        padding: 15px;
+    }
+    
+    .content-section h1 {
+        font-size: 1.8rem;
+    }
+    
+    .content-section h2 {
+        font-size: 1.3rem;
+    }
+    
+    .contact-card,
+    .value-card {
+        padding: 15px;
+    }
+    
+    .social-media-card {
+        min-width: 80px;
+        padding: 10px;
+    }
+    
+    .social-media-card i {
+        font-size: 1.5rem;
+    }
+    
+    .stat-card {
+        padding: 10px;
+    }
+    
+    .stat-number {
+        font-size: 1.2rem;
+    }
 } 
