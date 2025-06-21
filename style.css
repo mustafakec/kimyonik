@@ -2,8 +2,28 @@ body {
     background-color: #f8f9fa;
 }
 
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
 .navbar-brand img {
     transition: transform 0.3s ease;
+    height: 40px;
+    width: auto;
+}
+
+.navbar-brand span {
+    font-size: 1.25rem;
+    font-weight: 300;
+    line-height: 1;
+    display: inline;
+    align-items: center;
+}
+
+.navbar-brand .brand-name {
+    font-weight: 600;
 }
 
 .navbar-brand img:hover {
@@ -23,6 +43,7 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     position: relative;
+    margin-bottom: 20px;
 }
 
 .video-date {
@@ -35,6 +56,41 @@ body {
     border-radius: 4px;
     font-size: 0.9rem;
     z-index: 1;
+}
+
+/* Video iframe responsive düzenlemeleri */
+.video-frame-container {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 177.78%; /* TikTok için 9:16 aspect ratio */
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+}
+
+.video-frame-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 8px;
+}
+
+/* Desktop için daha geniş aspect ratio */
+@media (min-width: 768px) {
+    .video-frame-container {
+        padding-bottom: 56.25%; /* 16:9 aspect ratio desktop için */
+    }
+}
+
+/* Tablet için orta boyut */
+@media (min-width: 576px) and (max-width: 767px) {
+    .video-frame-container {
+        padding-bottom: 100%; /* 1:1 aspect ratio tablet için */
+    }
 }
 
 .ad-container {
@@ -162,18 +218,20 @@ footer {
 
 /* Filtreleme Stilleri */
 .filter-controls {
-    min-width: 200px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .filter-controls .form-select, #dateFilter {
-    min-width: 100px;
-    max-width: 150px;
     border-radius: 20px;
     padding: 8px 15px;
     border: 1px solid #dee2e6;
     background-color: white;
     cursor: pointer;
     transition: all 0.3s ease;
+    min-width: 120px;
 }
 
 .filter-controls input[type="date"] {
@@ -183,27 +241,6 @@ footer {
     background-color: white;
     transition: all 0.3s ease;
     min-width: 140px;
-    max-width: 170px;
-}
-
-@media (max-width: 600px) {
-    .video-container .d-flex.align-items-center {
-        flex-direction: column !important;
-        align-items: stretch !important;
-        gap: 0.5rem;
-    }
-    .filter-controls {
-        flex-direction: column !important;
-        align-items: stretch !important;
-        min-width: 0;
-        max-width: 100%;
-    }
-    .filter-controls .form-select,
-    .filter-controls input[type="date"] {
-        width: 100%;
-        min-width: 0;
-        max-width: 100%;
-    }
 }
 
 .form-select:hover {
@@ -215,106 +252,340 @@ footer {
     box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
 }
 
-.date-toggle {
-    opacity: 0;
-    pointer-events: none;
-    width: 170px;
-    min-width: 140px;
-    transition: opacity 0.2s;
-}
-
-.date-toggle.active {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.video-container .d-flex.align-items-center {
-    flex-wrap: wrap;
-}
-
-.filter-controls {
-    min-width: 200px;
-    flex-wrap: wrap;
-    gap: 10px;
-    max-width: 400px;
-    margin-bottom: 1rem;
-}
-
-@media (max-width: 600px) {
-    .video-container .d-flex.align-items-center {
-        flex-direction: column !important;
-        align-items: stretch !important;
-        gap: 0.5rem;
+/* Mobil Responsive Düzenlemeler */
+@media (max-width: 768px) {
+    .video-container {
+        padding: 15px;
     }
-    .filter-controls {
-        flex-direction: column !important;
-        align-items: stretch !important;
-        min-width: 0;
+    
+    .video-item {
+        padding: 10px;
+        margin-bottom: 15px;
+    }
+    
+    .video-date {
+        font-size: 0.8rem;
+        padding: 3px 8px;
+        top: 8px;
+        right: 8px;
+    }
+    
+    /* Video başlık ve filtreleme alanı mobil düzenlemesi */
+    .video-container .d-flex.justify-content-between.align-items-center.mb-4 {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+        min-width: auto;
+    }
+    
+    .video-container h2 {
+        font-size: 1.3rem;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    
+    .video-container .d-flex.align-items-center.gap-2 {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        min-width: auto;
         max-width: 100%;
     }
+    
+    .filter-controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        width: 100%;
+    }
+    
     .filter-controls .form-select,
     .filter-controls input[type="date"] {
         width: 100%;
-        min-width: 0;
+        min-width: auto;
         max-width: 100%;
+        padding: 12px 15px;
+        font-size: 1rem;
+    }
+    
+    .video-container label[for="dateFilter"] {
+        text-align: center;
+        margin-bottom: 5px;
+        font-size: 1rem;
+    }
+    
+    /* Reklam alanı mobil düzenlemesi */
+    .ad-container {
+        margin-top: 20px;
+        min-height: 200px;
+    }
+    
+    /* Sorumluluk reddi beyanı mobil düzenlemesi */
+    .disclaimer-section {
+        padding: 20px 15px;
+    }
+    
+    .disclaimer-section h3 {
+        font-size: 1.3rem;
+    }
+    
+    .disclaimer-content {
+        font-size: 0.9rem;
+    }
+    
+    /* Sosyal medya linkleri mobil düzenlemesi */
+    .social-links {
+        gap: 15px;
+    }
+    
+    .social-link {
+        font-size: 20px;
+    }
+    
+    /* İndirme butonu mobil optimizasyonu */
+    .download-btn {
+        padding: 12px 20px;
+        font-size: 1rem;
+        font-weight: 500;
     }
 }
 
-.d-flex.justify-content-between.align-items-center.mb-4 {
-    min-width: 400px;
+@media (max-width: 576px) {
+    .container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    
+    .video-container {
+        padding: 10px;
+    }
+    
+    .video-item {
+        padding: 8px;
+    }
+    
+    .video-container h2 {
+        font-size: 1.2rem;
+    }
+    
+    .navbar-brand {
+        font-size: 1rem;
+    }
+    
+    .navbar-brand img {
+        height: 30px;
+    }
+    
+    /* Video iframe mobil optimizasyonu */
+    .video-frame-container {
+        padding-bottom: 177.78%; /* TikTok için daha uygun aspect ratio */
+    }
+    
+    /* Filtreleme kontrolleri daha da kompakt */
+    .filter-controls .form-select,
+    .filter-controls input[type="date"] {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+    }
+    
+    .video-container label[for="dateFilter"] {
+        font-size: 0.9rem;
+    }
+    
+    /* Modal mobil optimizasyonu */
+    .modal-dialog {
+        margin: 10px;
+    }
+    
+    .modal-body {
+        padding: 20px 15px;
+    }
+    
+    .modal-body p {
+        font-size: 0.9rem;
+    }
+    
+    /* Footer mobil optimizasyonu */
+    footer {
+        padding: 20px 0;
+    }
+    
+    footer p {
+        font-size: 0.9rem;
+    }
 }
 
-.filter-controls {
-    min-width: 340px;
-    max-width: 400px;
-    gap: 10px;
+/* Tablet için orta boyut düzenlemeler */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .video-container .d-flex.justify-content-between.align-items-center.mb-4 {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    
+    .filter-controls {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .video-container h2 {
+        font-size: 1.4rem;
+    }
 }
 
-.filter-controls .form-select, #dateFilter {
-    min-width: 120px;
-    max-width: 180px;
+/* Video grid düzenlemesi */
+.video-grid {
+    display: grid;
+    gap: 20px;
 }
 
-.filter-controls input[type="date"] {
-    min-width: 140px;
-    max-width: 170px;
+@media (min-width: 768px) {
+    .video-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
-.video-container .d-flex.justify-content-between.align-items-center.mb-4 {
-    min-width: 400px;
-    width: 100%;
-    flex-wrap: nowrap;
+/* Loading ve hata mesajları için responsive düzenlemeler */
+.alert {
+    margin: 15px 0;
+    padding: 15px;
+    border-radius: 8px;
 }
 
-.video-container h2 {
-    margin-bottom: 0;
-    font-size: 1.5rem;
-    line-height: 1.2;
-    flex-shrink: 0;
+@media (max-width: 576px) {
+    .alert {
+        padding: 12px;
+        font-size: 0.9rem;
+    }
 }
 
-.video-container .d-flex.align-items-center.gap-2 {
-    min-width: 340px;
-    max-width: 400px;
-    gap: 10px;
-    flex-wrap: nowrap;
-    justify-content: flex-end;
+/* Arama Kutusu Stilleri */
+.search-container {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
 }
 
-.video-container .form-select, 
-.video-container input[type="date"] {
-    min-width: 120px;
-    max-width: 180px;
+.search-container .input-group {
+    max-width: 500px;
 }
 
-.video-container input[type="date"] {
-    min-width: 140px;
-    max-width: 170px;
-}
-
-.video-container label[for="dateFilter"] {
-    white-space: nowrap;
-    margin-bottom: 0;
-    font-weight: bold;
+.search-container .form-control {
+    border-radius: 0 20px 20px 0;
+    border-left: none;
+    padding: 12px 15px;
     font-size: 1rem;
+}
+
+.search-container .input-group-text {
+    background-color: white;
+    border-radius: 20px 0 0 20px;
+    border-right: none;
+    color: #6c757d;
+}
+
+.search-container .btn {
+    border-radius: 0 20px 20px 0;
+    border-left: none;
+    padding: 12px 15px;
+}
+
+.search-container .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+.search-container .form-control:focus + .input-group-text {
+    border-color: #007bff;
+}
+
+/* Video başlık stilleri */
+.video-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0;
+    line-height: 1.3;
+    text-align: left;
+    flex: 1;
+}
+
+.video-title:hover {
+    color: #007bff;
+}
+
+/* Kategori badge stilleri */
+.badge {
+    font-size: 0.75rem;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.badge.bg-primary {
+    background-color: #007bff !important;
+}
+
+.badge.bg-success {
+    background-color: #28a745 !important;
+}
+
+/* Video başlık ve kategori düzeni */
+.video-item .d-flex.justify-content-between.align-items-start {
+    gap: 10px;
+}
+
+/* Arama sonuçları için highlight */
+.highlight {
+    background-color: #fff3cd;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+/* İndirme butonu mobil optimizasyonu */
+.download-btn {
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* Arama kutusu mobil optimizasyonu */
+.search-container {
+    padding: 12px;
+}
+
+.search-container .input-group {
+    max-width: 100%;
+}
+
+.search-container .form-control,
+.search-container .btn {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+}
+
+/* Video başlık mobil optimizasyonu */
+.video-title {
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+
+/* Kategori badge mobil optimizasyonu */
+.badge {
+    font-size: 0.7rem;
+    padding: 4px 8px;
+}
+
+/* Video başlık ve kategori düzeni mobil */
+.video-item .d-flex.justify-content-between.align-items-start {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+}
+
+.video-item .badge {
+    align-self: flex-start;
 } 

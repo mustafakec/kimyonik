@@ -2,33 +2,45 @@
     "videos": [
         {
             "id": "1",
-            "title": "Örnek Video 1",
+            "title": "ahmetcan eşref tek",
             "embedUrl": "https://www.tiktok.com/embed/v2/7517945497831623943",
             "date": "2025-06-20",
-            "category": "video"
+            "category": "hikaye"
         },
         {
             "id": "2",
-            "title": "Örnek Video 2",
+            "title": "kadıköy boğası",
             "embedUrl": "https://www.tiktok.com/embed/v2/7517559815237930258",
             "date": "2025-06-20",
-            "category": "video"
+            "category": "hikaye"
         },
         {
             "id": "3",
-            "title": "Örnek Video 3",
+            "title": "marul doğrayan adam",
             "embedUrl": "https://www.tiktok.com/embed/v2/7517735822603390226",
             "date": "2025-06-20",
-            "category": "video"
+            "category": "hikaye"
         },
         {
             "id": "4",
-            "title": "Örnek Video 4",
+            "title": "saz çalan adam",
             "embedUrl": "https://www.tiktok.com/embed/v2/7517683947774479623",
             "date": "2025-06-20",
-            "category": "video"
+            "category": "hikaye"
+        },
+        {
+            "id": "5",
+            "title": "stresten su içtim",
+            "embedUrl": "https://www.tiktok.com/embed/v2/7517401485618023698",
+            "date": "2025-06-19",
+            "category": "reels"
+        },
+        {
+            "id": "6",
+            "title": "tüp ve yem",
+            "embedUrl": "https://www.tiktok.com/embed/v2/7500278705822960903",
+            "date": "2025-06-20",
+            "category": "reels"
         }
-       
-    
     ]
 } 
