@@ -332,7 +332,7 @@ window.addEventListener('load', loadAds);
 function showDownloadModalAndRedirect(url) {
     const modal = new bootstrap.Modal(document.getElementById('downloadModal'));
     const progressBar = document.getElementById('downloadProgress');
-    let counter = 10;
+    let counter = 10; // Süreyi 10 saniyeye çıkardık
     progressBar.style.width = '100%';
     progressBar.textContent = counter;
     progressBar.setAttribute('aria-valuenow', 100);
@@ -342,12 +342,12 @@ function showDownloadModalAndRedirect(url) {
     let interval = setInterval(() => {
         counter--;
         progressBar.textContent = counter;
-        progressBar.style.width = (counter * 10) + '%';
+        progressBar.style.width = (counter * 10) + '%'; // 10 saniye için %10'luk adımlar
         progressBar.setAttribute('aria-valuenow', counter * 10);
         if (counter <= 0) {
             clearInterval(interval);
             modal.hide();
-            window.open(url, '_blank');
+            redirectToDownload(url);
         }
     }, 1000);
 
@@ -355,4 +355,10 @@ function showDownloadModalAndRedirect(url) {
     document.getElementById('downloadModal').addEventListener('hidden.bs.modal', function() {
         clearInterval(interval);
     }, { once: true });
+}
+
+// Yönlendirme fonksiyonu
+function redirectToDownload(url) {
+    // Popup kullanmayı tamamen bırakıp doğrudan yönlendirme yap
+    window.location.href = url;
 } 

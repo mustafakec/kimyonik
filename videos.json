@@ -41,6 +41,34 @@
             "embedUrl": "https://www.tiktok.com/embed/v2/7500278705822960903",
             "date": "2025-06-20",
             "category": "reels"
+        },
+        {
+            "id": "7",
+            "title": "hayat bana engel koyma",
+            "embedUrl": "https://www.tiktok.com/embed/v2/7517984483208039687",
+            "date": "2025-06-21",
+            "category": "hikaye"
+        },
+        {
+            "id": "8",
+            "title": "sivrisinek",
+            "embedUrl": "https://www.tiktok.com/embed/v2/7517366133490601224",
+            "date": "2025-06-21",
+            "category": "hikaye"
+        },
+        {
+            "id": "9",
+            "title": "konum at geliyoruz",
+            "embedUrl": "https://www.tiktok.com/embed/v2/7512949549095210248",
+            "date": "2025-06-21",
+            "category": "hikaye"
+        },
+        {
+            "id": "10",
+            "title": "ayak mangalı",
+            "embedUrl": "https://www.tiktok.com/embed/v2/7517340744269434119",
+            "date": "2025-06-21",
+            "category": "hikaye"
         }
     ]
 } 
