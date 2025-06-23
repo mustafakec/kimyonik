@@ -118,6 +118,34 @@
             "embedUrl": "https://www.tiktok.com/embed/v2/7518393969345170696",
             "date": "2025-06-22",
             "category": "reels"
+        },
+        {
+            "id": "18",
+            "title": "gelecek kaygısı",
+            "embedUrl": "https://www.tiktok.com/embed/v2/7518735319018097938",
+            "date": "2025-06-23",
+            "category": "hikaye"
+        },
+        {
+            "id": "19",
+            "title": "kaskoya param yetmedi",
+            "embedUrl": "https://www.tiktok.com/embed/v2/7518528834229095687",
+            "date": "2025-06-23",
+            "category": "hikaye"
+        },
+        {
+            "id": "20",
+            "title": "saz çalan adam 3",
+            "embedUrl": "https://www.tiktok.com/embed/v2/7518453528021437704",
+            "date": "2025-06-23",
+            "category": "hikaye"
+        },
+        {
+            "id": "21",
+            "title": "kırşehir meşhur birdik yemeği",
+            "embedUrl": "https://www.tiktok.com/embed/v2/7509183181711510791",
+            "date": "2025-06-23",
+            "category": "hikaye"
         }
 
     ]
