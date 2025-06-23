@@ -159,6 +159,12 @@ function createVideoCard(video, searchTerm = '') {
                     <button class="btn btn-primary download-btn w-100" data-video-id="${video.id}">
                         <i class="fas fa-download me-2"></i>İndir
                     </button>
+                    <div class="download-notice mt-2">
+                        <small class="text-muted">
+                            <i class="fas fa-info-circle me-1"></i>
+                            İndir butonuna tıklayarak üçüncü parti siteye yönlendirileceksiniz
+                        </small>
+                    </div>
                 </div>
             </div>
         `;
@@ -208,7 +214,8 @@ async function displayVideos(filter = 'all', selectedDate = null, searchTerm = '
                 const videoId = this.getAttribute('data-video-id');
                 const video = videos.find(v => v.id === videoId);
                 if (video) {
-                    const videoUrl = video.embedUrl.replace('embed/v2/', '');
+                    // Embed URL'den normal TikTok URL'sine çevir
+                    const videoUrl = video.embedUrl.replace('https://www.tiktok.com/embed/v2/', 'https://www.tiktok.com/');
                     const redirectUrl = `https://tikmate.io?url=${encodeURIComponent(videoUrl)}`;
                     showDownloadModalAndRedirect(redirectUrl);
                 }
@@ -252,113 +259,95 @@ function clearSearch() {
     performSearch();
 }
 
-// Sayfa yüklendiğinde
+// Sayfa yüklendiğinde çalışacak fonksiyonlar
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Sayfa yüklendi, videolar gösteriliyor...');
+    
+    // İlk yükleme
     displayVideos();
-
-    const dateFilter = document.getElementById('dateFilter');
-    const datePicker = document.getElementById('datePicker');
-    const searchInput = document.getElementById('searchInput');
-    const clearSearchBtn = document.getElementById('clearSearch');
-    const categoryFilter = document.getElementById('categoryFilter');
-
-    // Sayfa ilk açıldığında tarih kutusu gizli olsun
-    datePicker.style.display = 'none';
-
-    // Kategori filtresi değişikliği
-    categoryFilter.addEventListener('change', function() {
-        console.log('Kategori değişti:', this.value);
-        performSearch();
+    
+    // Filtre değişikliklerini dinle
+    document.getElementById('categoryFilter').addEventListener('change', function() {
+        const category = this.value;
+        const dateFilter = document.getElementById('dateFilter').value;
+        const datePicker = document.getElementById('datePicker').value;
+        const searchTerm = document.getElementById('searchInput').value;
+        
+        displayVideos(dateFilter, datePicker, searchTerm, category);
     });
-
-    // Tarih filtresi değişikliği
-    dateFilter.addEventListener('change', function() {
-        if (this.value === 'custom') {
-            datePicker.style.display = 'block';
+    
+    document.getElementById('dateFilter').addEventListener('change', function() {
+        const filter = this.value;
+        const category = document.getElementById('categoryFilter').value;
+        const datePicker = document.getElementById('datePicker').value;
+        const searchTerm = document.getElementById('searchInput').value;
+        
+        // Özel tarih seçildiğinde date picker'ı göster/gizle
+        const datePickerElement = document.getElementById('datePicker');
+        if (filter === 'custom') {
+            datePickerElement.style.display = 'inline-block';
         } else {
-            datePicker.value = '';
-            datePicker.style.display = 'none';
+            datePickerElement.style.display = 'none';
+            datePickerElement.value = '';
         }
-        performSearch();
+        
+        displayVideos(filter, datePicker, searchTerm, category);
     });
-
-    // Tarih seçici değişikliği
-    datePicker.addEventListener('change', function() {
-        if (dateFilter.value === 'custom' && this.value) {
-            performSearch();
-        }
+    
+    document.getElementById('datePicker').addEventListener('change', function() {
+        const selectedDate = this.value;
+        const filter = document.getElementById('dateFilter').value;
+        const category = document.getElementById('categoryFilter').value;
+        const searchTerm = document.getElementById('searchInput').value;
+        
+        displayVideos(filter, selectedDate, searchTerm, category);
     });
-
-    // Arama input değişikliği (real-time arama)
-    searchInput.addEventListener('input', function() {
-        console.log('Arama input değişti:', this.value);
-        // Debounce ile performans optimizasyonu
+    
+    // Arama işlevselliği
+    document.getElementById('searchInput').addEventListener('input', function() {
         clearTimeout(this.searchTimeout);
         this.searchTimeout = setTimeout(() => {
-            console.log('Arama tetiklendi:', this.value);
             performSearch();
         }, 300);
     });
-
-    // Arama kutusunu temizle butonu
-    clearSearchBtn.addEventListener('click', function() {
-        console.log('Arama temizlendi');
+    
+    document.getElementById('clearSearch').addEventListener('click', function() {
         clearSearch();
     });
-
+    
     // Enter tuşu ile arama
-    searchInput.addEventListener('keypress', function(e) {
+    document.getElementById('searchInput').addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
-            console.log('Enter tuşu ile arama yapılıyor');
             performSearch();
         }
     });
 });
 
-// Reklam yükleme fonksiyonu
-function loadAds() {
-    try {
-        (adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (e) {
-        console.error('Reklam yüklenirken hata oluştu:', e);
-    }
-}
-
-// Sayfa yüklendiğinde reklamları yükle
-window.addEventListener('load', loadAds);
-
 // Modal ve indirme işlemi
 function showDownloadModalAndRedirect(url) {
     const modal = new bootstrap.Modal(document.getElementById('downloadModal'));
-    const progressBar = document.getElementById('downloadProgress');
-    let counter = 10; // Süreyi 10 saniyeye çıkardık
-    progressBar.style.width = '100%';
-    progressBar.textContent = counter;
-    progressBar.setAttribute('aria-valuenow', 100);
-
     modal.show();
-
-    let interval = setInterval(() => {
-        counter--;
-        progressBar.textContent = counter;
-        progressBar.style.width = (counter * 10) + '%'; // 10 saniye için %10'luk adımlar
-        progressBar.setAttribute('aria-valuenow', counter * 10);
-        if (counter <= 0) {
+    
+    // Progress bar animasyonu
+    const progressBar = document.getElementById('downloadProgress');
+    let progress = 0;
+    const interval = setInterval(() => {
+        progress += 10;
+        progressBar.style.width = progress + '%';
+        progressBar.textContent = progress;
+        
+        if (progress >= 100) {
             clearInterval(interval);
-            modal.hide();
-            redirectToDownload(url);
+            setTimeout(() => {
+                modal.hide();
+                redirectToDownload(url);
+            }, 500);
         }
-    }, 1000);
-
-    // Modal kapatılırsa sayacı durdur
-    document.getElementById('downloadModal').addEventListener('hidden.bs.modal', function() {
-        clearInterval(interval);
-    }, { once: true });
+    }, 200);
 }
 
-// Yönlendirme fonksiyonu
 function redirectToDownload(url) {
-    // Popup kullanmayı tamamen bırakıp doğrudan yönlendirme yap
-    window.location.href = url;
+    console.log('Yönlendirme yapılıyor:', url);
+    // Gerçek uygulamada bu URL'ye yönlendirme yapılacak
+    window.open(url, '_blank');
 } 

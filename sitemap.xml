@@ -2,31 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://kimyonik.tr/</loc>
-    <lastmod>2024-12-19</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2025-01-23</lastmod>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://kimyonik.tr/hakkimizda.html</loc>
-    <lastmod>2024-12-19</lastmod>
+    <lastmod>2025-01-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://kimyonik.tr/iletisim.html</loc>
-    <lastmod>2024-12-19</lastmod>
+    <lastmod>2025-01-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://kimyonik.tr/blog.html</loc>
+    <lastmod>2025-01-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://kimyonik.tr/gizlilik-politikasi.html</loc>
-    <lastmod>2024-12-19</lastmod>
+    <lastmod>2025-01-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kimyonik.tr/kullanim-kosullari.html</loc>
-    <lastmod>2024-12-19</lastmod>
+    <lastmod>2025-01-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>

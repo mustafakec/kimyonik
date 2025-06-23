@@ -18,6 +18,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <!-- EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID" crossorigin="anonymous"></script>
 </head>
@@ -27,7 +29,7 @@
             <a class="navbar-brand" href="index.html">
                 <img src="src/logo.png" alt="Kimyonik Logo" height="40" class="d-inline-block align-text-top me-2">
                 <span class="d-none d-sm-inline">
-                    <span class="brand-name">Kimyon</span> - Hikaye & Reels Videoları
+                    <span class="brand-name">Kimyonik</span> - Hikaye & Reels Videoları
                 </span>
                 <span class="d-inline d-sm-none">Kimyonik</span>
             </a>
@@ -117,6 +119,73 @@
                             <p>Site ile ilgili teknik sorunlarınızı <a href="mailto:info@kimyonik.tr">info@kimyonik.tr</a> adresine detaylı bir şekilde açıklayarak gönderebilirsiniz.</p>
                         </div>
                     </div>
+
+                    <div class="content-section">
+                        <h2>Bize Mesaj Gönderin</h2>
+                        <div class="contact-form-container">
+                            <form id="contactForm" class="contact-form">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="name" class="form-label">Adınız Soyadınız *</label>
+                                            <input type="text" class="form-control" id="name" name="name" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="email" class="form-label">E-posta Adresiniz *</label>
+                                            <input type="email" class="form-control" id="email" name="email" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="subject" class="form-label">Konu *</label>
+                                    <select class="form-select" id="subject" name="subject" required>
+                                        <option value="">Konu seçiniz</option>
+                                        <option value="Genel Soru">Genel Soru</option>
+                                        <option value="Teknik Sorun">Teknik Sorun</option>
+                                        <option value="Telif Hakkı">Telif Hakkı</option>
+                                        <option value="Reklam/İşbirliği">Reklam/İşbirliği</option>
+                                        <option value="Öneri">Öneri</option>
+                                        <option value="Diğer">Diğer</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="message" class="form-label">Mesajınız *</label>
+                                    <textarea class="form-control" id="message" name="message" rows="5" placeholder="Mesajınızı buraya yazın..." required></textarea>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="privacy" required>
+                                        <label class="form-check-label" for="privacy">
+                                            <a href="gizlilik-politikasi.html" target="_blank">Gizlilik Politikası</a>'nı okudum ve kabul ediyorum *
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
+                                        <i class="fas fa-paper-plane me-2"></i>Mesajı Gönder
+                                    </button>
+                                </div>
+                            </form>
+                            
+                            <!-- Başarı Mesajı -->
+                            <div id="successMessage" class="alert alert-success mt-3" style="display: none;">
+                                <i class="fas fa-check-circle me-2"></i>
+                                Mesajınız başarıyla gönderildi! En kısa sürede size dönüş yapacağız.
+                            </div>
+                            
+                            <!-- Hata Mesajı -->
+                            <div id="errorMessage" class="alert alert-danger mt-3" style="display: none;">
+                                <i class="fas fa-exclamation-circle me-2"></i>
+                                Mesajınız gönderilirken bir hata oluştu. Lütfen tekrar deneyin.
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -134,13 +203,88 @@
             <div class="footer-links mb-2">
                 <a href="gizlilik-politikasi.html" class="text-white me-3">Gizlilik Politikası</a>
                 <a href="kullanim-kosullari.html" class="text-white me-3">Kullanım Koşulları</a>
+                <a href="hakkimizda.html" class="text-white me-3">Hakkımızda</a>
                 <a href="iletisim.html" class="text-white me-3">İletişim</a>
-                <a href="hakkimizda.html" class="text-white">Hakkımızda</a>
+                <a href="blog.html" class="text-white">Blog</a>
             </div>
-            <p>&copy; 2025 Kimyon</p>
+            <p>&copy; 2025 Kimyonik</p>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // EmailJS başlatma
+        (function() {
+            emailjs.init("YOUR_EMAILJS_USER_ID"); // Bu kısmı EmailJS hesabınızdan alacağınız ID ile değiştirin
+        })();
+
+        // Form gönderme işlevi
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Buton durumunu güncelle
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Gönderiliyor...';
+            
+            // Mesajları gizle
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+            
+            // Form verilerini al
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value
+            };
+            
+            // EmailJS ile e-posta gönder
+            emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
+                to_email: 'info@kimyonik.tr',
+                from_name: formData.name,
+                from_email: formData.email,
+                subject: formData.subject,
+                message: formData.message
+            })
+            .then(function(response) {
+                console.log('SUCCESS!', response.status, response.text);
+                
+                // Başarı mesajını göster
+                successMessage.style.display = 'block';
+                
+                // Formu temizle
+                document.getElementById('contactForm').reset();
+                
+                // Buton durumunu geri al
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane me-2"></i>Mesajı Gönder';
+                
+                // 5 saniye sonra başarı mesajını gizle
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 5000);
+            })
+            .catch(function(error) {
+                console.log('FAILED...', error);
+                
+                // Hata mesajını göster
+                errorMessage.style.display = 'block';
+                
+                // Buton durumunu geri al
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane me-2"></i>Mesajı Gönder';
+                
+                // 5 saniye sonra hata mesajını gizle
+                setTimeout(() => {
+                    errorMessage.style.display = 'none';
+                }, 5000);
+            });
+        });
+    </script>
 </body>
 </html> 

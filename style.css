@@ -1,3 +1,14 @@
+/* Genel taşma kontrolü */
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+}
+
 body {
     background-color: #f8f9fa;
 }
@@ -67,6 +78,7 @@ body {
     overflow: hidden;
     border-radius: 8px;
     background-color: #f8f9fa;
+    max-width: 100%;
 }
 
 .video-frame-container iframe {
@@ -77,6 +89,7 @@ body {
     height: 100%;
     border: none;
     border-radius: 8px;
+    max-width: 100%;
 }
 
 /* Desktop için daha geniş aspect ratio */
@@ -112,6 +125,33 @@ body {
 .download-btn {
     width: 100%;
     margin-top: 10px;
+}
+
+/* İndirme Uyarı Metni Stilleri */
+.download-notice {
+    text-align: center;
+    padding: 0 10px;
+}
+
+.download-notice small {
+    font-size: 0.75rem;
+    line-height: 1.3;
+    opacity: 0.8;
+}
+
+.download-notice .fa-info-circle {
+    color: #6c757d;
+}
+
+/* Mobil için uyarı metni düzenlemeleri */
+@media (max-width: 576px) {
+    .download-notice small {
+        font-size: 0.7rem;
+    }
+    
+    .download-notice {
+        padding: 0 5px;
+    }
 }
 
 .navbar {
@@ -222,6 +262,8 @@ footer {
     align-items: center;
     gap: 10px;
     flex-wrap: wrap;
+    min-width: auto;
+    max-width: 100%;
 }
 
 .filter-controls .form-select, #dateFilter {
@@ -232,6 +274,8 @@ footer {
     cursor: pointer;
     transition: all 0.3s ease;
     min-width: 120px;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .filter-controls input[type="date"] {
@@ -241,6 +285,8 @@ footer {
     background-color: white;
     transition: all 0.3s ease;
     min-width: 140px;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .form-select:hover {
@@ -394,7 +440,8 @@ footer {
     
     /* Modal mobil optimizasyonu */
     .modal-dialog {
-        margin: 10px;
+        max-width: 98%;
+        margin: 0.5rem auto;
     }
     
     .modal-body {
@@ -467,7 +514,8 @@ footer {
 }
 
 .search-container .input-group {
-    max-width: 500px;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 .search-container .form-control {
@@ -475,6 +523,8 @@ footer {
     border-left: none;
     padding: 12px 15px;
     font-size: 1rem;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .search-container .input-group-text {
@@ -545,13 +595,6 @@ footer {
     font-weight: bold;
 }
 
-/* İndirme butonu mobil optimizasyonu */
-.download-btn {
-    padding: 12px 20px;
-    font-size: 1rem;
-    font-weight: 500;
-}
-
 /* Arama kutusu mobil optimizasyonu */
 .search-container {
     padding: 12px;
@@ -600,24 +643,35 @@ footer {
 }
 
 .content-section {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     margin-bottom: 30px;
 }
 
 .content-section h1 {
     color: #333;
     font-size: 2.5rem;
-    font-weight: 600;
+    font-weight: 700;
     margin-bottom: 20px;
-    border-bottom: 3px solid #007bff;
-    padding-bottom: 10px;
+    text-align: center;
 }
 
 .content-section h2 {
     color: #333;
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: 600;
-    margin-bottom: 15px;
-    margin-top: 25px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.content-section .lead {
+    font-size: 1.2rem;
+    color: #666;
+    text-align: center;
+    margin-bottom: 30px;
+    line-height: 1.6;
 }
 
 .content-section h3 {
@@ -719,21 +773,21 @@ footer {
     background-color: #f8f9fa;
     padding: 20px;
     border-radius: 8px;
-    margin-bottom: 15px;
-    border-left: 4px solid #28a745;
+    margin-bottom: 20px;
+    border-left: 4px solid #007bff;
 }
 
 .faq-item h3 {
     color: #333;
-    margin-bottom: 10px;
     font-size: 1.2rem;
+    margin-bottom: 10px;
+    font-weight: 600;
 }
 
-.contact-form {
-    background-color: #f8f9fa;
-    padding: 25px;
-    border-radius: 8px;
-    margin-top: 20px;
+.faq-item p {
+    color: #666;
+    margin-bottom: 0;
+    line-height: 1.6;
 }
 
 /* Hakkımızda Sayfası Stilleri */
@@ -742,42 +796,76 @@ footer {
     padding: 25px;
     border-radius: 8px;
     text-align: center;
-    margin-bottom: 20px;
-    transition: transform 0.3s ease;
+    height: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #e9ecef;
 }
 
 .value-card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
 .value-icon {
-    font-size: 2.5rem;
+    font-size: 3rem;
     color: #007bff;
     margin-bottom: 15px;
 }
 
 .value-card h3 {
     color: #333;
-    margin-bottom: 10px;
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    font-weight: 600;
 }
 
-.stat-card {
-    background-color: #f8f9fa;
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-}
-
-.stat-number {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #007bff;
-    margin-bottom: 5px;
-}
-
-.stat-label {
+.value-card p {
     color: #666;
-    font-size: 0.9rem;
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+
+.step-card {
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    text-align: center;
+    height: 100%;
+    border: 2px solid #e9ecef;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.step-card:hover {
+    transform: translateY(-3px);
+}
+
+.step-number {
+    background-color: #007bff;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0 auto 15px;
+}
+
+.step-card h4 {
+    color: #333;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.step-card p {
+    color: #666;
+    margin-bottom: 0;
+    line-height: 1.5;
+    font-size: 0.95rem;
 }
 
 /* Footer Linkleri */
@@ -792,10 +880,6 @@ footer {
 
 /* Responsive Düzenlemeler */
 @media (max-width: 768px) {
-    .content-container {
-        padding: 20px;
-    }
-    
     .content-section h1 {
         font-size: 2rem;
     }
@@ -804,8 +888,12 @@ footer {
         font-size: 1.5rem;
     }
     
-    .contact-card,
-    .value-card {
+    .value-card,
+    .step-card {
+        margin-bottom: 20px;
+    }
+    
+    .content-section {
         padding: 20px;
     }
     
@@ -816,14 +904,6 @@ footer {
     .social-media-card {
         min-width: 100px;
         padding: 15px;
-    }
-    
-    .stat-card {
-        padding: 15px;
-    }
-    
-    .stat-number {
-        font-size: 1.5rem;
     }
     
     .footer-links {
@@ -838,10 +918,6 @@ footer {
 }
 
 @media (max-width: 576px) {
-    .content-container {
-        padding: 15px;
-    }
-    
     .content-section h1 {
         font-size: 1.8rem;
     }
@@ -850,9 +926,13 @@ footer {
         font-size: 1.3rem;
     }
     
-    .contact-card,
-    .value-card {
-        padding: 15px;
+    .value-card,
+    .step-card {
+        padding: 20px;
+    }
+    
+    .value-icon {
+        font-size: 2.5rem;
     }
     
     .social-media-card {
@@ -864,11 +944,271 @@ footer {
         font-size: 1.5rem;
     }
     
-    .stat-card {
-        padding: 10px;
+    .footer-links {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
     }
     
-    .stat-number {
-        font-size: 1.2rem;
+    .footer-links a {
+        margin: 0 !important;
     }
+}
+
+/* İletişim Formu Stilleri */
+.contact-form-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border: 1px solid #e9ecef;
+}
+
+.contact-form {
+    max-width: 100%;
+}
+
+.contact-form .form-label {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 8px;
+}
+
+.contact-form .form-control,
+.contact-form .form-select {
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.contact-form .form-control:focus,
+.contact-form .form-select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+.contact-form textarea.form-control {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.contact-form .form-check-label {
+    font-size: 0.9rem;
+    color: #6c757d;
+    line-height: 1.4;
+}
+
+.contact-form .form-check-label a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.contact-form .form-check-label a:hover {
+    text-decoration: underline;
+}
+
+.contact-form .btn-primary {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    border: none;
+    border-radius: 8px;
+    padding: 14px 28px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+.contact-form .btn-primary:hover {
+    background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 123, 255, 0.4);
+}
+
+.contact-form .btn-primary:disabled {
+    background: #6c757d;
+    transform: none;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+.contact-form .alert {
+    border-radius: 8px;
+    border: none;
+    padding: 16px 20px;
+    font-weight: 500;
+}
+
+.contact-form .alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border-left: 4px solid #28a745;
+}
+
+.contact-form .alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-left: 4px solid #dc3545;
+}
+
+/* Mobil için form düzenlemeleri */
+@media (max-width: 768px) {
+    .contact-form-container {
+        padding: 20px;
+        margin: 0 -10px;
+    }
+    
+    .contact-form .btn-primary {
+        padding: 12px 24px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .contact-form-container {
+        padding: 15px;
+    }
+    
+    .contact-form .form-control,
+    .contact-form .form-select {
+        padding: 10px 12px;
+        font-size: 0.95rem;
+    }
+    
+    .contact-form textarea.form-control {
+        min-height: 100px;
+    }
+}
+
+/* Mobil için ek düzenlemeler */
+@media (max-width: 768px) {
+    body {
+        overflow-x: hidden;
+    }
+    
+    .container {
+        max-width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+        overflow-x: hidden;
+    }
+    
+    .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .col-12, .col-md-6, .col-md-4, .col-md-3, .col-lg-8, .col-lg-3, .col-sm-6 {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    
+    .video-container, .content-container, .content-section {
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 15px;
+        padding-right: 15px;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+    
+    .video-item {
+        margin-left: 0;
+        margin-right: 0;
+        max-width: 100%;
+    }
+    
+    .navbar {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    .navbar-brand {
+        max-width: 100%;
+        overflow: hidden;
+    }
+    
+    .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .footer-links a {
+        margin: 5px;
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 576px) {
+    body {
+        overflow-x: hidden;
+    }
+    
+    .container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    
+    .video-container, .content-container, .content-section {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    
+    .col-12, .col-md-6, .col-md-4, .col-md-3, .col-lg-8, .col-lg-3, .col-sm-6 {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    
+    .navbar-brand span {
+        font-size: 1rem;
+    }
+    
+    .navbar-brand img {
+        height: 35px;
+    }
+}
+
+/* Modal için düzenleme */
+.modal-dialog {
+    max-width: 95%;
+    margin: 1.75rem auto;
+}
+
+@media (max-width: 576px) {
+    .modal-dialog {
+        max-width: 98%;
+        margin: 0.5rem auto;
+    }
+}
+
+/* Form elemanları için düzenleme */
+.form-control, .form-select, .btn {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Arama kutusu için özel düzenleme */
+.search-container .input-group {
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.search-container .form-control {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Filtre kontrolleri için düzenleme */
+.filter-controls {
+    min-width: auto;
+    max-width: 100%;
+    flex-wrap: wrap;
+}
+
+.filter-controls .form-select,
+.filter-controls input[type="date"] {
+    max-width: 100%;
+    box-sizing: border-box;
 } 
