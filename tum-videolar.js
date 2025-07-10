@@ -55,23 +55,6 @@ async function displayAllVideos(filter = 'all', selectedDate = null, searchTerm 
         let html = '';
         videosToShow.forEach((video, idx) => {
             html += createVideoCard(video, searchTerm);
-            // Her 2 videodan sonra reklam ekle (sonda değilse)
-            if ((idx + 1) % 2 === 0 && idx !== videosToShow.length - 1) {
-                html += `
-                <div class="ad-inlist d-flex justify-content-center align-items-center my-3">
-                    <script type="text/javascript">
-                        atOptions = {
-                            'key' : 'e6dc54954be3940ec0ee3596c49e25cc',
-                            'format' : 'iframe',
-                            'height' : 250,
-                            'width' : 300,
-                            'params' : {}
-                        };
-                    </script>
-                    <script type="text/javascript" src="//www.highperformanceformat.com/e6dc54954be3940ec0ee3596c49e25cc/invoke.js"></script>
-                </div>
-                `;
-            }
         });
 
         videoList.innerHTML = html;

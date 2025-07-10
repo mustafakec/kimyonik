@@ -225,24 +225,8 @@ async function displayVideos(filter = 'all', selectedDate = null, searchTerm = '
         let html = '';
         videosToShow.forEach((video, idx) => {
             html += createVideoCard(video, searchTerm);
-            // Her 2 videodan sonra reklam ekle (sonda değilse)
-            if ((idx + 1) % 2 === 0 && idx !== videosToShow.length - 1) {
-                // Dinamik reklam divi
-                const adId = `ad-inlist-${page}-${idx}`;
-                html += `<div id="${adId}" class="ad-inlist d-flex justify-content-center align-items-center my-3"></div>`;
-            }
         });
         videoList.innerHTML = html;
-        // Dinamik reklam scriptlerini ekle
-        videosToShow.forEach((video, idx) => {
-            if ((idx + 1) % 2 === 0 && idx !== videosToShow.length - 1) {
-                const adId = `ad-inlist-${page}-${idx}`;
-                const adDiv = document.getElementById(adId);
-                if (adDiv) {
-                    insertAdsterraBanner(adDiv, 'e6dc54954be3940ec0ee3596c49e25cc', 300, 250);
-                }
-            }
-        });
 
         // Sayfalama oluştur
         if (pagination) createHomePagination(totalPages, homeCurrentPage);
@@ -440,45 +424,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // En alt 320x50 banner reklamı dinamik ekle
     const footerAd = document.getElementById('footer-ad-320x50');
     if (footerAd) {
-        insertAdsterraBanner(footerAd, '761708de175f9bfccb0d59c91cfdb8d3', 320, 50);
+        // insertAdsterraBanner(footerAd, '761708de175f9bfccb0d59c91cfdb8d3', 320, 50); // Removed Adsterra banner
     }
 });
 
 // Modal ve indirme işlemi
-// Adsterra banner reklamını dinamik ekle
-function insertAdsterraBanner(container, key, width, height) {
-    // atOptions'u globalde tanımla
-    window.atOptions = {
-        'key': key,
-        'format': 'iframe',
-        'height': height,
-        'width': width,
-        'params': {}
-    };
-    // Scripti ekle
-    const srcScript = document.createElement('script');
-    srcScript.type = 'text/javascript';
-    srcScript.src = `//www.highperformanceformat.com/${key}/invoke.js`;
-    container.appendChild(srcScript);
-}
-
-// Adsterra native reklamı dinamik ekle
-function insertAdsterraNative(container) {
-    // Scripti ekle
-    const script = document.createElement('script');
-    script.async = true;
-    script.setAttribute('data-cfasync', 'false');
-    script.src = '//pl27121631.profitableratecpm.com/3919e94f5b692b86c5d5e2be57e96064/invoke.js';
-    container.appendChild(script);
-    // Ad divi ekle
-    const adDiv = document.createElement('div');
-    adDiv.id = 'container-3919e94f5b692b86c5d5e2be57e96064';
-    container.appendChild(adDiv);
-}
-
-// Modal yönlendirme için global değişkenler
-globalThis.downloadModalInterval = null;
-globalThis.downloadModalTimeout = null;
+// Tüm reklam kodları ve bannerCodes dizisi kaldırıldı.
+// Modal popup'a reklam ekleme kodları da kaldırıldı.
 
 function showDownloadModalAndRedirect(url) {
     const modalElement = document.getElementById('downloadModal');
@@ -489,12 +441,6 @@ function showDownloadModalAndRedirect(url) {
     if (oldAdDiv) {
         oldAdDiv.remove();
     }
-    // Yeni reklamı ekle
-    let adDiv = document.createElement('div');
-    adDiv.id = 'modal-native-ad';
-    adDiv.className = 'ad-modal d-flex justify-content-center align-items-center my-3';
-    modalBody.appendChild(adDiv);
-    insertAdsterraNative(adDiv);
     // Kalan süre göstergesi ekle
     let timerText = document.getElementById('redirect-timer');
     if (!timerText) {
