@@ -1212,3 +1212,8 @@ footer {
     max-width: 100%;
     box-sizing: border-box;
 } 
+
+.progress-bar {
+    float: none !important;
+    direction: ltr !important;
+} 

@@ -227,23 +227,22 @@ async function displayVideos(filter = 'all', selectedDate = null, searchTerm = '
             html += createVideoCard(video, searchTerm);
             // Her 2 videodan sonra reklam ekle (sonda değilse)
             if ((idx + 1) % 2 === 0 && idx !== videosToShow.length - 1) {
-                html += `
-                <div class="ad-inlist d-flex justify-content-center align-items-center my-3">
-                    <script type="text/javascript">
-                        atOptions = {
-                            'key' : 'e6dc54954be3940ec0ee3596c49e25cc',
-                            'format' : 'iframe',
-                            'height' : 250,
-                            'width' : 300,
-                            'params' : {}
-                        };
-                    </script>
-                    <script type="text/javascript" src="//www.highperformanceformat.com/e6dc54954be3940ec0ee3596c49e25cc/invoke.js"></script>
-                </div>
-                `;
+                // Dinamik reklam divi
+                const adId = `ad-inlist-${page}-${idx}`;
+                html += `<div id="${adId}" class="ad-inlist d-flex justify-content-center align-items-center my-3"></div>`;
             }
         });
         videoList.innerHTML = html;
+        // Dinamik reklam scriptlerini ekle
+        videosToShow.forEach((video, idx) => {
+            if ((idx + 1) % 2 === 0 && idx !== videosToShow.length - 1) {
+                const adId = `ad-inlist-${page}-${idx}`;
+                const adDiv = document.getElementById(adId);
+                if (adDiv) {
+                    insertAdsterraBanner(adDiv, 'e6dc54954be3940ec0ee3596c49e25cc', 300, 250);
+                }
+            }
+        });
 
         // Sayfalama oluştur
         if (pagination) createHomePagination(totalPages, homeCurrentPage);
@@ -437,23 +436,65 @@ document.addEventListener('DOMContentLoaded', function() {
             performSearch();
         }
     });
+
+    // En alt 320x50 banner reklamı dinamik ekle
+    const footerAd = document.getElementById('footer-ad-320x50');
+    if (footerAd) {
+        insertAdsterraBanner(footerAd, '761708de175f9bfccb0d59c91cfdb8d3', 320, 50);
+    }
 });
 
 // Modal ve indirme işlemi
+// Adsterra banner reklamını dinamik ekle
+function insertAdsterraBanner(container, key, width, height) {
+    // atOptions'u globalde tanımla
+    window.atOptions = {
+        'key': key,
+        'format': 'iframe',
+        'height': height,
+        'width': width,
+        'params': {}
+    };
+    // Scripti ekle
+    const srcScript = document.createElement('script');
+    srcScript.type = 'text/javascript';
+    srcScript.src = `//www.highperformanceformat.com/${key}/invoke.js`;
+    container.appendChild(srcScript);
+}
+
+// Adsterra native reklamı dinamik ekle
+function insertAdsterraNative(container) {
+    // Scripti ekle
+    const script = document.createElement('script');
+    script.async = true;
+    script.setAttribute('data-cfasync', 'false');
+    script.src = '//pl27121631.profitableratecpm.com/3919e94f5b692b86c5d5e2be57e96064/invoke.js';
+    container.appendChild(script);
+    // Ad divi ekle
+    const adDiv = document.createElement('div');
+    adDiv.id = 'container-3919e94f5b692b86c5d5e2be57e96064';
+    container.appendChild(adDiv);
+}
+
+// Modal yönlendirme için global değişkenler
+globalThis.downloadModalInterval = null;
+globalThis.downloadModalTimeout = null;
+
 function showDownloadModalAndRedirect(url) {
-    const modal = new bootstrap.Modal(document.getElementById('downloadModal'));
-    // Modal açıldığında native reklamı ekle
+    const modalElement = document.getElementById('downloadModal');
+    const modal = new bootstrap.Modal(modalElement);
+    // Modal açıldığında eski reklamı temizle
     const modalBody = document.querySelector('#downloadModal .modal-body');
-    if (modalBody && !modalBody.querySelector('#container-3919e94f5b692b86c5d5e2be57e96064')) {
-        const adDiv = document.createElement('div');
-        adDiv.innerHTML = `
-            <div class="ad-modal d-flex justify-content-center align-items-center my-3">
-                <script async="async" data-cfasync="false" src="//pl27121631.profitableratecpm.com/3919e94f5b692b86c5d5e2be57e96064/invoke.js"></script>
-                <div id="container-3919e94f5b692b86c5d5e2be57e96064"></div>
-            </div>
-        `;
-        modalBody.appendChild(adDiv);
+    let oldAdDiv = document.getElementById('modal-native-ad');
+    if (oldAdDiv) {
+        oldAdDiv.remove();
     }
+    // Yeni reklamı ekle
+    let adDiv = document.createElement('div');
+    adDiv.id = 'modal-native-ad';
+    adDiv.className = 'ad-modal d-flex justify-content-center align-items-center my-3';
+    modalBody.appendChild(adDiv);
+    insertAdsterraNative(adDiv);
     // Kalan süre göstergesi ekle
     let timerText = document.getElementById('redirect-timer');
     if (!timerText) {
@@ -468,28 +509,43 @@ function showDownloadModalAndRedirect(url) {
     let seconds = 10;
     timerText.textContent = `${seconds} saniye sonra yönlendirileceksiniz...`;
     modal.show();
-    // Progress bar animasyonu (10 saniye)
+    // Progress bar animasyonu (10 saniye, soldan sağa dolacak)
     const progressBar = document.getElementById('downloadProgress');
     let progress = 0;
-    const interval = setInterval(() => {
-        progress += 100 / (seconds * 5); // 10 saniyede 100'e ulaşacak (her 200ms)
+    progressBar.style.width = '0%';
+    progressBar.textContent = seconds;
+    if (globalThis.downloadModalInterval) clearInterval(globalThis.downloadModalInterval);
+    if (globalThis.downloadModalTimeout) clearTimeout(globalThis.downloadModalTimeout);
+    globalThis.downloadModalInterval = setInterval(() => {
+        progress += 100 / 10 / 5; // 10 saniyede 100'e ulaşacak (her 200ms)
+        if (progress > 100) progress = 100;
         progressBar.style.width = Math.round(progress) + '%';
-        progressBar.textContent = Math.round(progress);
+        // Her saniye metni ve barı güncelle
         if (progress % 10 === 0 && seconds > 1) {
             seconds--;
             timerText.textContent = `${seconds} saniye sonra yönlendirileceksiniz...`;
+            progressBar.textContent = seconds;
         }
         if (progress >= 100) {
-            clearInterval(interval);
-            setTimeout(() => {
+            clearInterval(globalThis.downloadModalInterval);
+            globalThis.downloadModalTimeout = setTimeout(() => {
                 modal.hide();
                 timerText.textContent = '';
                 progressBar.style.width = '100%';
-                progressBar.textContent = '100';
+                progressBar.textContent = '0';
                 redirectToDownload(url);
             }, 500);
         }
     }, 200);
+    // Modal kapatılırsa timer ve yönlendirme iptal
+    modalElement.addEventListener('hidden.bs.modal', function onModalHidden() {
+        if (globalThis.downloadModalInterval) clearInterval(globalThis.downloadModalInterval);
+        if (globalThis.downloadModalTimeout) clearTimeout(globalThis.downloadModalTimeout);
+        timerText.textContent = '';
+        progressBar.style.width = '100%';
+        progressBar.textContent = '100';
+        modalElement.removeEventListener('hidden.bs.modal', onModalHidden);
+    });
 }
 
 function redirectToDownload(url) {
