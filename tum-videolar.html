@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tüm Videolar - Kimyonik</title>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-03VSVZTFXV"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-03VSVZTFXV');
+    </script>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .video-container h2 {
+            margin-bottom: 0;
+            font-size: 2rem;
+            line-height: 1.2;
+        }
+
+        .filter-controls {
+            min-width: 340px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="src/logo.png" alt="Kimyonik Logo" height="40" class="d-inline-block align-text-top me-2">
+                <span class="d-none d-sm-inline">
+                    <span class="brand-name">Kimyonik</span> - Hikaye & Reels Videoları
+                </span>
+                <span class="d-inline d-sm-none">Kimyonik</span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <!-- Video Bölümü -->
+        <div class="row">
+            <div class="col-12">
+                <div class="video-container">
+                    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+                        <h2 class="mb-0">Tüm Videolar</h2>
+                        <div class="d-flex align-items-center gap-2 flex-wrap">
+                            <label for="categoryFilter" class="mb-0 me-2 fw-bold">Kategori:</label>
+                            <select id="categoryFilter" class="form-select">
+                                <option value="all">Tümü</option>
+                                <option value="hikaye">Hikaye</option>
+                                <option value="reels">Reels</option>
+                            </select>
+                            <label for="dateFilter" class="mb-0 me-2 fw-bold">Filtre:</label>
+                            <select id="dateFilter" class="form-select">
+                                <option value="all">Tüm Zamanlar</option>
+                                <option value="today">Bugün</option>
+                                <option value="yesterday">Dün</option>
+                                <option value="week">Bu Hafta</option>
+                                <option value="month">Bu Ay</option>
+                                <option value="custom">Özel Tarih</option>
+                            </select>
+                            <input type="date" id="datePicker" class="form-control">
+                        </div>
+                    </div>
+                    
+                    <!-- Arama Kutusu -->
+                    <div class="search-container mb-4">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fas fa-search"></i>
+                            </span>
+                            <input type="text" 
+                                   id="searchInput" 
+                                   class="form-control" 
+                                   placeholder="Video ismi ile ara..."
+                                   aria-label="Video ara">
+                            <button class="btn btn-outline-secondary" 
+                                    type="button" 
+                                    id="clearSearch">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="videoList" class="video-grid">
+                        <!-- Videolar JavaScript ile buraya eklenecek -->
+                    </div>
+                    
+                    <!-- Sayfalama -->
+                    <div class="pagination-container mt-4">
+                        <nav aria-label="Video sayfalama">
+                            <ul class="pagination justify-content-center" id="pagination">
+                                <!-- Sayfalama JavaScript ile buraya eklenecek -->
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- İndirme Modalı -->
+    <div class="modal fade" id="downloadModal" tabindex="-1" aria-labelledby="downloadModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="downloadModalLabel">Yönlendiriliyorsunuz</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+          </div>
+          <div class="modal-body text-center">
+            <p>Videoyu indirmek için 3. taraf siteye yönlendirileceksiniz, lütfen bekleyin.</p>
+            <div class="alert alert-info">
+              <i class="fas fa-info-circle me-2"></i>
+              <strong>Not:</strong> Yönlendirme mevcut sayfada gerçekleşecektir. İndirme işlemi tamamlandıktan sonra geri dönebilirsiniz.
+            </div>
+            <div class="progress my-3" style="height: 30px;">
+              <div id="downloadProgress" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%; font-size: 1.2rem;">10</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="bg-dark text-white mt-5 py-3">
+        <div class="container text-center">
+            <div class="social-links mb-3">
+                <a href="https://instagram.com/kimy0nik" target="_blank" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://x.com/kimy0nik" target="_blank" class="social-link" aria-label="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+                <a href="https://tiktok.com/@kimyon.tt" target="_blank" class="social-link" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                <a href="https://youtube.com/@Kimyon" target="_blank" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+            <p class="mb-2"><a href="mailto:info@kimyonik.tr" class="text-white">info@kimyonik.tr</a></p>
+            <div class="footer-links mb-2">
+                <a href="gizlilik-politikasi.html" class="text-white me-3">Gizlilik Politikası</a>
+                <a href="kullanim-kosullari.html" class="text-white me-3">Kullanım Koşulları</a>
+                <a href="hakkimizda.html" class="text-white me-3">Hakkımızda</a>
+                <a href="iletisim.html" class="text-white me-3">İletişim</a>
+                <a href="blog.html" class="text-white">Blog</a>
+            </div>
+            <p>&copy; 2025 Kimyonik</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+    <script src="tum-videolar.js"></script>
+</body>
+</html> 

@@ -1,3 +1,8 @@
+// Anasayfa için sayfalama değişkenleri
+let homeCurrentPage = 1;
+const homeVideosPerPage = 8;
+let homeFilteredVideos = [];
+
 // Video verilerini yükle
 async function loadVideos() {
     try {
@@ -175,9 +180,10 @@ function createVideoCard(video, searchTerm = '') {
 }
 
 // Videoları göster
-async function displayVideos(filter = 'all', selectedDate = null, searchTerm = '', category = 'all') {
+async function displayVideos(filter = 'all', selectedDate = null, searchTerm = '', category = 'all', page = 1) {
     try {
         const videoList = document.getElementById('videoList');
+        const pagination = document.getElementById('pagination');
         if (!videoList) {
             console.error('videoList elementi bulunamadı!');
             return;
@@ -188,26 +194,60 @@ async function displayVideos(filter = 'all', selectedDate = null, searchTerm = '
         
         if (!videos || videos.length === 0) {
             videoList.innerHTML = '<div class="alert alert-info">Henüz video eklenmemiş.</div>';
+            if (pagination) pagination.innerHTML = '';
             return;
         }
 
-        const filteredVideos = filterVideos(videos, filter, selectedDate, searchTerm, category);
-        console.log('Filtrelenmiş videolar:', filteredVideos);
+        homeFilteredVideos = filterVideos(videos, filter, selectedDate, searchTerm, category);
+        console.log('Filtrelenmiş videolar:', homeFilteredVideos);
         
-        if (filteredVideos.length === 0) {
+        if (homeFilteredVideos.length === 0) {
             let message = 'Seçilen kriterlere uygun video bulunamadı.';
             if (searchTerm.trim()) {
                 message = `"${searchTerm}" araması için sonuç bulunamadı.`;
             }
             videoList.innerHTML = `<div class="alert alert-info">${message}</div>`;
+            if (pagination) pagination.innerHTML = '';
             return;
         }
 
         // Videoları tarihe göre sırala (en yeniden en eskiye)
-        filteredVideos.sort((a, b) => new Date(b.date) - new Date(a.date));
+        homeFilteredVideos.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-        videoList.innerHTML = filteredVideos.map(video => createVideoCard(video, searchTerm)).join('');
-        
+        // Sayfalama hesapla
+        const totalPages = Math.ceil(homeFilteredVideos.length / homeVideosPerPage);
+        const startIndex = (page - 1) * homeVideosPerPage;
+        const endIndex = startIndex + homeVideosPerPage;
+        const videosToShow = homeFilteredVideos.slice(startIndex, endIndex);
+        homeCurrentPage = page;
+
+        // Videoları ve reklamları birleştirerek HTML oluştur
+        let html = '';
+        videosToShow.forEach((video, idx) => {
+            html += createVideoCard(video, searchTerm);
+            // Her 2 videodan sonra reklam ekle (sonda değilse)
+            if ((idx + 1) % 2 === 0 && idx !== videosToShow.length - 1) {
+                html += `
+                <div class="ad-inlist d-flex justify-content-center align-items-center my-3">
+                    <script type="text/javascript">
+                        atOptions = {
+                            'key' : 'e6dc54954be3940ec0ee3596c49e25cc',
+                            'format' : 'iframe',
+                            'height' : 250,
+                            'width' : 300,
+                            'params' : {}
+                        };
+                    </script>
+                    <script type="text/javascript" src="//www.highperformanceformat.com/e6dc54954be3940ec0ee3596c49e25cc/invoke.js"></script>
+                </div>
+                `;
+            }
+        });
+        videoList.innerHTML = html;
+
+        // Sayfalama oluştur
+        if (pagination) createHomePagination(totalPages, homeCurrentPage);
+
         // İndirme butonlarına event listener ekle
         document.querySelectorAll('.download-btn').forEach(button => {
             button.addEventListener('click', function() {
@@ -228,6 +268,82 @@ async function displayVideos(filter = 'all', selectedDate = null, searchTerm = '
             videoList.innerHTML = '<div class="alert alert-danger">Videolar yüklenirken bir hata oluştu.</div>';
         }
     }
+}
+
+// Anasayfa için sayfalama oluştur
+function createHomePagination(totalPages, currentPage) {
+    let pagination = document.getElementById('pagination');
+    if (!pagination) {
+        // Eğer pagination elementi yoksa oluştur
+        const container = document.querySelector('.video-container');
+        if (container) {
+            const pagDiv = document.createElement('div');
+            pagDiv.className = 'pagination-container mt-4';
+            pagDiv.innerHTML = `<nav aria-label="Video sayfalama"><ul class="pagination justify-content-center" id="pagination"></ul></nav>`;
+            container.appendChild(pagDiv);
+            pagination = document.getElementById('pagination');
+        }
+    }
+    if (!pagination) return;
+    let html = '';
+    if (totalPages <= 1) {
+        pagination.innerHTML = '';
+        return;
+    }
+    // Önceki sayfa butonu
+    if (currentPage > 1) {
+        html += `<li class="page-item"><a class="page-link" href="#" data-page="${currentPage - 1}">Önceki</a></li>`;
+    }
+    // Sayfa numaraları
+    const startPage = Math.max(1, currentPage - 2);
+    const endPage = Math.min(totalPages, currentPage + 2);
+    if (startPage > 1) {
+        html += `<li class="page-item"><a class="page-link" href="#" data-page="1">1</a></li>`;
+        if (startPage > 2) {
+            html += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
+        }
+    }
+    for (let i = startPage; i <= endPage; i++) {
+        if (i === currentPage) {
+            html += `<li class="page-item active"><span class="page-link">${i}</span></li>`;
+        } else {
+            html += `<li class="page-item"><a class="page-link" href="#" data-page="${i}">${i}</a></li>`;
+        }
+    }
+    if (endPage < totalPages) {
+        if (endPage < totalPages - 1) {
+            html += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
+        }
+        html += `<li class="page-item"><a class="page-link" href="#" data-page="${totalPages}">${totalPages}</a></li>`;
+    }
+    // Sonraki sayfa butonu
+    if (currentPage < totalPages) {
+        html += `<li class="page-item"><a class="page-link" href="#" data-page="${currentPage + 1}">Sonraki</a></li>`;
+    }
+    pagination.innerHTML = html;
+    // Sayfalama linklerine event listener ekle
+    pagination.querySelectorAll('.page-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const page = parseInt(this.getAttribute('data-page'));
+            if (page && page !== currentPage) {
+                displayVideos(
+                    document.getElementById('dateFilter').value,
+                    document.getElementById('datePicker').value,
+                    document.getElementById('searchInput').value,
+                    document.getElementById('categoryFilter').value,
+                    page
+                );
+                // Sayfa değişince en üste kaydır
+                const videoList = document.getElementById('videoList');
+                if (videoList) {
+                    videoList.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }
+        });
+    });
 }
 
 // Arama fonksiyonu
@@ -264,7 +380,7 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Sayfa yüklendi, videolar gösteriliyor...');
     
     // İlk yükleme
-    displayVideos();
+    displayVideos('all', null, '', 'all', 1);
     
     // Filtre değişikliklerini dinle
     document.getElementById('categoryFilter').addEventListener('change', function() {
@@ -326,20 +442,50 @@ document.addEventListener('DOMContentLoaded', function() {
 // Modal ve indirme işlemi
 function showDownloadModalAndRedirect(url) {
     const modal = new bootstrap.Modal(document.getElementById('downloadModal'));
+    // Modal açıldığında native reklamı ekle
+    const modalBody = document.querySelector('#downloadModal .modal-body');
+    if (modalBody && !modalBody.querySelector('#container-3919e94f5b692b86c5d5e2be57e96064')) {
+        const adDiv = document.createElement('div');
+        adDiv.innerHTML = `
+            <div class="ad-modal d-flex justify-content-center align-items-center my-3">
+                <script async="async" data-cfasync="false" src="//pl27121631.profitableratecpm.com/3919e94f5b692b86c5d5e2be57e96064/invoke.js"></script>
+                <div id="container-3919e94f5b692b86c5d5e2be57e96064"></div>
+            </div>
+        `;
+        modalBody.appendChild(adDiv);
+    }
+    // Kalan süre göstergesi ekle
+    let timerText = document.getElementById('redirect-timer');
+    if (!timerText) {
+        timerText = document.createElement('div');
+        timerText.id = 'redirect-timer';
+        timerText.style.marginBottom = '10px';
+        timerText.style.fontWeight = 'bold';
+        timerText.style.fontSize = '1.1rem';
+        timerText.style.color = '#007bff';
+        modalBody.insertBefore(timerText, modalBody.firstChild);
+    }
+    let seconds = 10;
+    timerText.textContent = `${seconds} saniye sonra yönlendirileceksiniz...`;
     modal.show();
-    
-    // Progress bar animasyonu
+    // Progress bar animasyonu (10 saniye)
     const progressBar = document.getElementById('downloadProgress');
     let progress = 0;
     const interval = setInterval(() => {
-        progress += 10;
-        progressBar.style.width = progress + '%';
-        progressBar.textContent = progress;
-        
+        progress += 100 / (seconds * 5); // 10 saniyede 100'e ulaşacak (her 200ms)
+        progressBar.style.width = Math.round(progress) + '%';
+        progressBar.textContent = Math.round(progress);
+        if (progress % 10 === 0 && seconds > 1) {
+            seconds--;
+            timerText.textContent = `${seconds} saniye sonra yönlendirileceksiniz...`;
+        }
         if (progress >= 100) {
             clearInterval(interval);
             setTimeout(() => {
                 modal.hide();
+                timerText.textContent = '';
+                progressBar.style.width = '100%';
+                progressBar.textContent = '100';
                 redirectToDownload(url);
             }, 500);
         }
