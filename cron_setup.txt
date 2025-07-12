@@ -1,0 +1,16 @@
+# Ads.txt Otomatik Güncelleme - Cron Job Kurulumu
+
+# Günlük güncelleme için cron job eklemek için:
+# crontab -e
+
+# Aşağıdaki satırı ekleyin:
+# 0 2 * * * /tam/yol/kimyonik/update_ads.txt.sh >> /tam/yol/kimyonik/ads_update.log 2>&1
+
+# Örnek (kimyonik klasörü için):
+# 0 2 * * * /Users/macbook/Desktop/kimyonik/update_ads.txt.sh >> /Users/macbook/Desktop/kimyonik/ads_update.log 2>&1
+
+# Bu cron job her gün saat 02:00'de ads.txt'yi güncelleyecek
+# Log dosyası ads_update.log'da tutulacak
+
+# Manuel çalıştırma için:
+# ./update_ads.txt.sh 
