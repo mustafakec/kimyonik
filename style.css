@@ -1222,4 +1222,44 @@ footer {
     max-width: 1400px !important;
     margin-left: auto !important;
     margin-right: auto !important;
+}
+
+/* Banner container stilleri */
+.banner-container {
+    width: 100%;
+    margin: 2rem 0;
+}
+
+.banner-ad {
+    width: 350px;
+    height: 250px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .banner-ad {
+        width: 100%;
+        max-width: 350px;
+        height: auto;
+        min-height: 250px;
+    }
+}
+
+@media (max-width: 576px) {
+    .banner-container {
+        margin: 1rem 0;
+    }
+    
+    .banner-ad {
+        width: 100%;
+        max-width: 320px;
+        min-height: 200px;
+    }
 } 
