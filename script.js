@@ -179,30 +179,7 @@ function createVideoCard(video, searchTerm = '') {
     }
 }
 
-// Ezoic reklam yönetimi fonksiyonları
-function refreshEzoicAds() {
-    if (typeof ezstandalone !== 'undefined') {
-        ezstandalone.cmd.push(function () {
-            ezstandalone.showAds();
-        });
-    }
-}
 
-function destroyEzoicPlaceholders(placeholders) {
-    if (typeof ezstandalone !== 'undefined') {
-        ezstandalone.cmd.push(function () {
-            ezstandalone.destroyPlaceholders(placeholders);
-        });
-    }
-}
-
-function showEzoicPlaceholders(placeholders) {
-    if (typeof ezstandalone !== 'undefined') {
-        ezstandalone.cmd.push(function () {
-            ezstandalone.showAds(placeholders);
-        });
-    }
-}
 
 // Videoları göster
 async function displayVideos(filter = 'all', selectedDate = null, searchTerm = '', category = 'all', page = 1) {
@@ -272,8 +249,7 @@ async function displayVideos(filter = 'all', selectedDate = null, searchTerm = '
             });
         });
 
-        // Ezoic reklamları yenile (sayfa değişikliği sonrası)
-        refreshEzoicAds();
+
     } catch (error) {
         console.error('Videoları gösterme hatası:', error);
         const videoList = document.getElementById('videoList');
@@ -355,8 +331,7 @@ function createHomePagination(totalPages, currentPage) {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
                 
-                // Sayfa değişikliği sonrası Ezoic reklamları yenile
-                refreshEzoicAds();
+
             }
         });
     });
@@ -383,8 +358,7 @@ function performSearch() {
     
     displayVideos(filter, selectedDate, searchTerm, category);
     
-    // Arama sonrası Ezoic reklamları yenile
-    refreshEzoicAds();
+
 }
 
 

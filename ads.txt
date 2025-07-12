@@ -1,4 +1,1 @@
-<?php
-header('Location: https://srv.adstxtmanager.com/19390/kimyonik.tr');
-exit;
-?>
+google.com, pub-7739465360112931, DIRECT, f08c47fec0942fa0
