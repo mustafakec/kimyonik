@@ -1238,6 +1238,8 @@ footer {
     transition: transform 0.2s ease;
     border-radius: 6px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    max-width: 400px;
+    max-height: 333px;
 }
 
 .banner-ad:hover {
@@ -1257,40 +1259,35 @@ footer {
     transition: transform 0.2s ease;
     border-radius: 6px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    max-width: 400px;
+    max-height: 333px;
 }
 
 #modal-banner-ad img:hover {
     transform: scale(1.02);
 }
 
-/* Mobil için banner reklam düzenlemeleri */
+/* Tablet için banner reklam düzenlemeleri */
 @media (max-width: 768px) {
-    .banner-ad-container {
-        margin: 10px 0;
-        padding: 8px;
-    }
-    
     .banner-ad {
-        max-width: 250px !important;
+        max-width: 350px !important;
+        max-height: 292px !important;
     }
-    
     #modal-banner-ad img {
-        max-width: 250px !important;
+        max-width: 350px !important;
+        max-height: 292px !important;
     }
 }
 
+/* Mobil için banner reklam düzenlemeleri */
 @media (max-width: 576px) {
-    .banner-ad-container {
-        margin: 8px 0;
-        padding: 6px;
-    }
-    
     .banner-ad {
-        max-width: 200px !important;
+        max-width: 320px !important;
+        max-height: 267px !important;
     }
-    
     #modal-banner-ad img {
-        max-width: 200px !important;
+        max-width: 320px !important;
+        max-height: 267px !important;
     }
 } 
 
