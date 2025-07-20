@@ -3,6 +3,38 @@ let homeCurrentPage = 1;
 const homeVideosPerPage = 8;
 let homeFilteredVideos = [];
 
+// Banner reklamları için diziler
+const videoBanners = [
+    {
+        image: 'src/ayakkabi.jpg',
+        link: 'https://lowest-prices.eu/a/2kkVji8J7DfB1En'
+    },
+    {
+        image: 'src/game.jpg',
+        link: 'https://lowest-prices.eu/a/mZZJKtjolyhBQJG'
+    },
+    {
+        image: 'src/saat.jpg',
+        link: 'https://lowest-prices.eu/a/rkkOPi8RZ9t4z2B'
+    }
+];
+
+const downloadBanner = {
+    image: 'src/video.jpg',
+    link: 'https://wait-page.eu/a/rkkOPiANBC4j6N'
+};
+
+// Banner reklamı oluştur
+function createBannerAd(banner, index = 0) {
+    return `
+        <div class="banner-ad-container mb-3">
+            <a href="${banner.link}" target="_blank" rel="noopener noreferrer">
+                <img src="${banner.image}" alt="Reklam" class="banner-ad" style="width: 100%; height: auto; max-width: 300px; display: block; margin: 0 auto;">
+            </a>
+        </div>
+    `;
+}
+
 // Video verilerini yükle
 async function loadVideos() {
     try {
@@ -228,7 +260,9 @@ async function displayVideos(filter = 'all', selectedDate = null, searchTerm = '
         videosToShow.forEach((video, idx) => {
             html += createVideoCard(video, searchTerm);
             
-
+            // Her videonun altına banner reklamı ekle
+            const bannerIndex = idx % videoBanners.length;
+            html += createBannerAd(videoBanners[bannerIndex], bannerIndex);
         });
         videoList.innerHTML = html;
 
@@ -453,6 +487,21 @@ function showDownloadModalAndRedirect(url) {
     if (oldAdDiv) {
         oldAdDiv.remove();
     }
+    
+    // İndirme modalına banner reklamı ekle
+    let bannerDiv = document.getElementById('modal-banner-ad');
+    if (!bannerDiv) {
+        bannerDiv = document.createElement('div');
+        bannerDiv.id = 'modal-banner-ad';
+        bannerDiv.className = 'text-center mb-3';
+        bannerDiv.innerHTML = `
+            <a href="${downloadBanner.link}" target="_blank" rel="noopener noreferrer">
+                <img src="${downloadBanner.image}" alt="Reklam" style="width: 100%; height: auto; max-width: 300px; display: block; margin: 0 auto;">
+            </a>
+        `;
+        modalBody.insertBefore(bannerDiv, modalBody.firstChild);
+    }
+    
     // Kalan süre göstergesi ekle
     let timerText = document.getElementById('redirect-timer');
     if (!timerText) {

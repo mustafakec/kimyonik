@@ -1224,4 +1224,74 @@ footer {
     margin-right: auto !important;
 }
 
+/* Banner Reklam Stilleri */
+.banner-ad-container {
+    text-align: center;
+    margin: 15px 0;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.banner-ad {
+    transition: transform 0.2s ease;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.banner-ad:hover {
+    transform: scale(1.02);
+}
+
+/* Modal içindeki banner reklamı */
+#modal-banner-ad {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+#modal-banner-ad img {
+    transition: transform 0.2s ease;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#modal-banner-ad img:hover {
+    transform: scale(1.02);
+}
+
+/* Mobil için banner reklam düzenlemeleri */
+@media (max-width: 768px) {
+    .banner-ad-container {
+        margin: 10px 0;
+        padding: 8px;
+    }
+    
+    .banner-ad {
+        max-width: 250px !important;
+    }
+    
+    #modal-banner-ad img {
+        max-width: 250px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .banner-ad-container {
+        margin: 8px 0;
+        padding: 6px;
+    }
+    
+    .banner-ad {
+        max-width: 200px !important;
+    }
+    
+    #modal-banner-ad img {
+        max-width: 200px !important;
+    }
+} 
+
  
